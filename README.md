@@ -9,5 +9,4 @@ Documentation about MathiA Project
 
 ### The following index lists the main areas and topics you can find in this repository.
 
-- Timeline
-- Lider's activities
+
