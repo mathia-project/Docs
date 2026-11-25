@@ -22,6 +22,8 @@ All project materials are located in [`mathia-project/`](mathia-project/). The i
 
 The application brings together school and student management, educational resources, tests, and pedagogical reports. Start with its [English README](mathia-project/mathia-pedagogical-report-app/README.md) for an overview, local installation instructions, demo accounts, and validation commands.
 
+Try the [working demo of this version](https://demo.mathia-project.eu/login).
+
 | Folder | Contents |
 | --- | --- |
 | [`app/`](mathia-project/mathia-pedagogical-report-app/app/) | SolidJS web interface for directors, teachers, and students, including translations and frontend tests. |
