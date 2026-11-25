@@ -33,4 +33,15 @@ The application brings together school and student management, educational resou
 | [`docs/`](mathia-project/mathia-pedagogical-report-app/docs/) | Documentation for question and resource imports, the report generation contract, and report presentation and PDF output. |
 | [`scripts/`](mathia-project/mathia-pedagogical-report-app/scripts/) | Local setup automation, including `bootstrap.py` to configure and start the application with Docker Compose. |
 
+#### Web ecosystem documentation — [`mathia-web/`](mathia-project/mathia-web/)
+
+Legal notices and terms of use, privacy policies, and cookie policies for the MathiA website and its demo, learning, logbook, and resources subdomains, available in four languages.
+
+| File | Contents |
+| --- | --- |
+| [`legal-notices.en.md`](mathia-project/mathia-web/legal-notices.en.md) | Legal notice and terms of use, privacy policy, and cookie policy in English. |
+| [`textos-legales.es.md`](mathia-project/mathia-web/textos-legales.es.md) | Legal notice and terms of use, privacy policy, and cookie policy in Spanish. |
+| [`note-legali.it.md`](mathia-project/mathia-web/note-legali.it.md) | Legal notice and terms of use, privacy policy, and cookie policy in Italian. |
+| [`avisos-legais.pt.md`](mathia-project/mathia-web/avisos-legais.pt.md) | Legal notice and terms of use, privacy policy, and cookie policy in Portuguese. |
+
 For an evaluation, begin with the application README to run the demo, explore `mathia-model/` to review the research experiments, and consult the application's `docs/` and `data/` folders for contracts and example formats.
