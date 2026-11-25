@@ -1,0 +1,167 @@
+{
+  "$defs": {
+    "DomainFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Domain Id",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Text",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "maxLength": 120,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "domain_id",
+        "text",
+        "evidence_refs"
+      ],
+      "title": "DomainFinding",
+      "type": "object"
+    },
+    "PedagogicalAction": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Description",
+          "type": "string"
+        },
+        "resource_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Resource Ids",
+          "type": "array"
+        },
+        "evidence_refs": {
+          "items": {
+            "maxLength": 120,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "description",
+        "resource_ids",
+        "evidence_refs"
+      ],
+      "title": "PedagogicalAction",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "report_type": {
+      "const": "student",
+      "title": "Report Type",
+      "type": "string"
+    },
+    "language": {
+      "enum": [
+        "en",
+        "es",
+        "it"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 200,
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Title",
+      "type": "string"
+    },
+    "summary": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Summary",
+      "type": "string"
+    },
+    "strengths": {
+      "items": {
+        "$ref": "#/$defs/DomainFinding"
+      },
+      "maxItems": 20,
+      "title": "Strengths",
+      "type": "array"
+    },
+    "areas_for_improvement": {
+      "items": {
+        "$ref": "#/$defs/DomainFinding"
+      },
+      "maxItems": 20,
+      "title": "Areas For Improvement",
+      "type": "array"
+    },
+    "action_plan": {
+      "items": {
+        "$ref": "#/$defs/PedagogicalAction"
+      },
+      "maxItems": 20,
+      "title": "Action Plan",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 2000,
+        "minLength": 1,
+        "pattern": "\\S",
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "report_type",
+    "language",
+    "title",
+    "summary",
+    "strengths",
+    "areas_for_improvement",
+    "action_plan",
+    "limitations"
+  ],
+  "title": "StudentReportDocument",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

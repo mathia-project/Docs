@@ -1,0 +1,811 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CCSS Mathematics Grades 6-10: normalized bilingual source of truth",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "const": "./ccss_math_grades_6_10.schema.json"
+    },
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "const": "ccss-math-grades-6-10-integrated"
+    },
+    "title": {
+      "$ref": "#/$defs/localizedText"
+    },
+    "defaultLocale": {
+      "const": "en"
+    },
+    "locales": {
+      "const": [
+        "en",
+        "es"
+      ]
+    },
+    "translation": {
+      "type": "object",
+      "properties": {
+        "sourceLocale": {
+          "const": "en"
+        },
+        "status": {
+          "const": "project_translation"
+        },
+        "note": {
+          "$ref": "#/$defs/localizedText"
+        }
+      },
+      "required": [
+        "sourceLocale",
+        "status",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "policies": {
+      "type": "object",
+      "properties": {
+        "organization": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "identifiers": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "scope": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "modeling": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "plus": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "catalog": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "equivalence": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "textNormalization": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "scopeNotes": {
+          "$ref": "#/$defs/localizedText"
+        }
+      },
+      "required": [
+        "organization",
+        "identifiers",
+        "scope",
+        "modeling",
+        "plus",
+        "catalog",
+        "equivalence",
+        "textNormalization",
+        "scopeNotes"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "object",
+      "properties": {
+        "ccss": {
+          "$ref": "#/$defs/source"
+        },
+        "appendix-a": {
+          "$ref": "#/$defs/source"
+        }
+      },
+      "required": [
+        "ccss",
+        "appendix-a"
+      ],
+      "additionalProperties": false
+    },
+    "categories": {
+      "type": "object",
+      "properties": {
+        "N": {
+          "$ref": "#/$defs/category"
+        },
+        "A": {
+          "$ref": "#/$defs/category"
+        },
+        "F": {
+          "$ref": "#/$defs/category"
+        },
+        "G": {
+          "$ref": "#/$defs/category"
+        },
+        "S": {
+          "$ref": "#/$defs/category"
+        }
+      },
+      "required": [
+        "N",
+        "A",
+        "F",
+        "G",
+        "S"
+      ],
+      "additionalProperties": false
+    },
+    "domains": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/domain"
+      }
+    },
+    "clusters": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/cluster"
+      }
+    },
+    "standards": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/standard"
+      }
+    },
+    "substandards": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/substandard"
+      }
+    },
+    "courses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/course"
+      },
+      "minItems": 5,
+      "maxItems": 5
+    },
+    "lookup": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/lookupEntry"
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "properties": {
+        "uniqueStandards": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "uniqueSubstandards": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "courses": {
+          "type": "object",
+          "properties": {
+            "grade-6": {
+              "$ref": "#/$defs/courseCounts"
+            },
+            "grade-7": {
+              "$ref": "#/$defs/courseCounts"
+            },
+            "grade-8": {
+              "$ref": "#/$defs/courseCounts"
+            },
+            "grade-9": {
+              "$ref": "#/$defs/courseCounts"
+            },
+            "grade-10": {
+              "$ref": "#/$defs/courseCounts"
+            }
+          },
+          "required": [
+            "grade-6",
+            "grade-7",
+            "grade-8",
+            "grade-9",
+            "grade-10"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "uniqueStandards",
+        "uniqueSubstandards",
+        "courses"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "id",
+    "title",
+    "defaultLocale",
+    "locales",
+    "translation",
+    "policies",
+    "sources",
+    "categories",
+    "domains",
+    "clusters",
+    "standards",
+    "substandards",
+    "courses",
+    "lookup",
+    "statistics"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "es": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "en",
+        "es"
+      ],
+      "additionalProperties": false
+    },
+    "sourceReference": {
+      "type": "object",
+      "properties": {
+        "sourceId": {
+          "enum": [
+            "ccss",
+            "appendix-a"
+          ]
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "sourceId",
+        "pages"
+      ],
+      "additionalProperties": false
+    },
+    "markers": {
+      "type": "object",
+      "properties": {
+        "modeling": {
+          "type": "boolean"
+        },
+        "plus": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "modeling",
+        "plus"
+      ],
+      "additionalProperties": false
+    },
+    "note": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        }
+      },
+      "required": [
+        "text",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "pageNumbering": {
+          "const": "one_based_pdf_pages"
+        }
+      },
+      "required": [
+        "path",
+        "title",
+        "sha256",
+        "pageNumbering"
+      ],
+      "additionalProperties": false
+    },
+    "category": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            "N",
+            "A",
+            "F",
+            "G",
+            "S"
+          ]
+        },
+        "name": {
+          "$ref": "#/$defs/localizedText"
+        }
+      },
+      "required": [
+        "code",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "domain": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "categoryId": {
+          "enum": [
+            "N",
+            "A",
+            "F",
+            "G",
+            "S"
+          ]
+        },
+        "categoryAssignment": {
+          "enum": [
+            "official",
+            "project_crosswalk"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        }
+      },
+      "required": [
+        "code",
+        "name",
+        "categoryId",
+        "categoryAssignment",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "cluster": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "domainId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        }
+      },
+      "required": [
+        "code",
+        "domainId",
+        "name",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "standard": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ccssId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "clusterId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "markers": {
+          "$ref": "#/$defs/markers"
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        },
+        "substandardIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/note"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "code",
+        "ccssId",
+        "clusterId",
+        "text",
+        "markers",
+        "source",
+        "substandardIds",
+        "notes"
+      ],
+      "additionalProperties": false
+    },
+    "substandard": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ccssId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "standardId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "markers": {
+          "$ref": "#/$defs/markers"
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        }
+      },
+      "required": [
+        "code",
+        "ccssId",
+        "standardId",
+        "text",
+        "markers",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "targetIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "extent": {
+          "enum": [
+            "full",
+            "limited"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        },
+        "scope": {
+          "$ref": "#/$defs/localizedText"
+        }
+      },
+      "required": [
+        "targetIds",
+        "extent",
+        "source",
+        "scope"
+      ],
+      "additionalProperties": false
+    },
+    "assignment": {
+      "type": "object",
+      "properties": {
+        "standardId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "substandardIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "inclusion": {
+          "enum": [
+            "listed",
+            "optional_extension"
+          ]
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coverage"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "standardId",
+        "substandardIds",
+        "inclusion",
+        "coverage"
+      ],
+      "additionalProperties": false
+    },
+    "courseCluster": {
+      "type": "object",
+      "properties": {
+        "clusterId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "standards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/assignment"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "clusterId",
+        "standards"
+      ],
+      "additionalProperties": false
+    },
+    "courseDomain": {
+      "type": "object",
+      "properties": {
+        "domainId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "clusters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/courseCluster"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "domainId",
+        "clusters"
+      ],
+      "additionalProperties": false
+    },
+    "courseCategory": {
+      "type": "object",
+      "properties": {
+        "categoryId": {
+          "enum": [
+            "N",
+            "A",
+            "F",
+            "G",
+            "S"
+          ]
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/courseDomain"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "categoryId",
+        "domains"
+      ],
+      "additionalProperties": false
+    },
+    "course": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^grade-(6|7|8|9|10)$"
+        },
+        "grade": {
+          "type": "integer",
+          "minimum": 6,
+          "maximum": 10
+        },
+        "name": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "spanishCourseEquivalent": {
+          "type": "object",
+          "properties": {
+            "system": {
+              "const": "ES"
+            },
+            "name": {
+              "$ref": "#/$defs/localizedText"
+            },
+            "basis": {
+              "const": "user_defined_course_alignment"
+            }
+          },
+          "required": [
+            "system",
+            "name",
+            "basis"
+          ],
+          "additionalProperties": false
+        },
+        "pathway": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "enum": [
+                "grade-level",
+                "integrated"
+              ]
+            },
+            "name": {
+              "$ref": "#/$defs/localizedText"
+            },
+            "courseName": {
+              "$ref": "#/$defs/localizedText"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "courseName"
+          ],
+          "additionalProperties": false
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/courseCategory"
+          },
+          "minItems": 5,
+          "maxItems": 5
+        }
+      },
+      "required": [
+        "id",
+        "grade",
+        "name",
+        "spanishCourseEquivalent",
+        "pathway",
+        "source",
+        "categories"
+      ],
+      "additionalProperties": false
+    },
+    "lookupEntry": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "standard",
+            "substandard"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "courseCounts": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "categoriesWithContent": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "domains": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "clusters": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "listedStandards": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "listedSubstandards": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "listedLeafItems": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "optionalStandards": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "categories",
+        "categoriesWithContent",
+        "domains",
+        "clusters",
+        "listedStandards",
+        "listedSubstandards",
+        "listedLeafItems",
+        "optionalStandards"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

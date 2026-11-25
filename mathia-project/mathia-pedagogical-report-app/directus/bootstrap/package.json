@@ -1,0 +1,17 @@
+{
+  "name": "mathia-directus-bootstrap",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "bootstrap": "node bootstrap.mjs",
+    "seed": "node seed.mjs",
+    "dry-run": "node bootstrap.mjs --dry-run",
+    "manifest": "node bootstrap.mjs --print-manifest",
+    "test": "node --test",
+    "validate": "node --check bootstrap.mjs && node --check manifest.mjs && node --check validate.mjs && node validate.mjs"
+  }
+}
+

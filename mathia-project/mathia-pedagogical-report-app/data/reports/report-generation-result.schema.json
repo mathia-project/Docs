@@ -1,0 +1,931 @@
+{
+  "$defs": {
+    "DiagnosticEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ref": {
+          "maxLength": 120,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Evidence Ref",
+          "type": "string"
+        },
+        "has_recorded_diagnosis": {
+          "title": "Has Recorded Diagnosis",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "evidence_ref",
+        "has_recorded_diagnosis"
+      ],
+      "title": "DiagnosticEvidence",
+      "type": "object"
+    },
+    "DomainEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ref": {
+          "maxLength": 120,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Evidence Ref",
+          "type": "string"
+        },
+        "domain_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Domain Id",
+          "type": "string"
+        },
+        "domain_name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Domain Name",
+          "type": "string"
+        },
+        "category_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Category Id"
+        },
+        "is_baseline": {
+          "title": "Is Baseline",
+          "type": "boolean"
+        },
+        "evaluations_count": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Evaluations Count",
+          "type": "integer"
+        },
+        "total_questions": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Total Questions",
+          "type": "integer"
+        },
+        "correct_questions": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Correct Questions",
+          "type": "integer"
+        },
+        "total_score_awarded": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Total Score Awarded",
+          "type": "number"
+        },
+        "total_max_score": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Total Max Score",
+          "type": "number"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "maximum": 15,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Score"
+        },
+        "accuracy_percent": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Accuracy Percent"
+        },
+        "classification": {
+          "enum": [
+            "insufficient_evidence",
+            "consolidated_strength",
+            "intervention"
+          ],
+          "title": "Classification",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_ref",
+        "domain_id",
+        "domain_name",
+        "category_id",
+        "is_baseline",
+        "evaluations_count",
+        "total_questions",
+        "correct_questions",
+        "total_score_awarded",
+        "total_max_score",
+        "score",
+        "accuracy_percent",
+        "classification"
+      ],
+      "title": "DomainEvidence",
+      "type": "object"
+    },
+    "DomainFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Domain Id",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Text",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "maxLength": 120,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "domain_id",
+        "text",
+        "evidence_refs"
+      ],
+      "title": "DomainFinding",
+      "type": "object"
+    },
+    "PedagogicalAction": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Description",
+          "type": "string"
+        },
+        "resource_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Resource Ids",
+          "type": "array"
+        },
+        "evidence_refs": {
+          "items": {
+            "maxLength": 120,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "description",
+        "resource_ids",
+        "evidence_refs"
+      ],
+      "title": "PedagogicalAction",
+      "type": "object"
+    },
+    "PredictionEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ref": {
+          "maxLength": 120,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Evidence Ref",
+          "type": "string"
+        },
+        "prediction": {
+          "$ref": "#/$defs/ReportStoredPrediction"
+        }
+      },
+      "required": [
+        "evidence_ref",
+        "prediction"
+      ],
+      "title": "PredictionEvidence",
+      "type": "object"
+    },
+    "ReportEvidenceSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "evidence_snapshot_id": {
+          "format": "uuid",
+          "title": "Evidence Snapshot Id",
+          "type": "string"
+        },
+        "prepared_at": {
+          "format": "date-time",
+          "title": "Prepared At",
+          "type": "string"
+        },
+        "school_id": {
+          "format": "uuid",
+          "title": "School Id",
+          "type": "string"
+        },
+        "request": {
+          "$ref": "#/$defs/StudentReportGenerationRequest"
+        },
+        "calculation_version": {
+          "const": "student-report-metrics/1.0",
+          "title": "Calculation Version",
+          "type": "string"
+        },
+        "source_scope": {
+          "const": "authorized_period_assessments",
+          "title": "Source Scope",
+          "type": "string"
+        },
+        "source_complete": {
+          "const": true,
+          "title": "Source Complete",
+          "type": "boolean"
+        },
+        "metrics": {
+          "$ref": "#/$defs/ReportMetrics"
+        },
+        "domains": {
+          "items": {
+            "$ref": "#/$defs/DomainEvidence"
+          },
+          "maxItems": 100,
+          "title": "Domains",
+          "type": "array"
+        },
+        "diagnostic": {
+          "$ref": "#/$defs/DiagnosticEvidence"
+        },
+        "stored_prediction": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PredictionEvidence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resources": {
+          "items": {
+            "$ref": "#/$defs/ResourceEvidence"
+          },
+          "maxItems": 100,
+          "title": "Resources",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "evidence_snapshot_id",
+        "prepared_at",
+        "school_id",
+        "request",
+        "calculation_version",
+        "source_scope",
+        "source_complete",
+        "metrics",
+        "domains",
+        "diagnostic",
+        "stored_prediction",
+        "resources",
+        "limitations"
+      ],
+      "title": "ReportEvidenceSnapshot",
+      "type": "object"
+    },
+    "ReportGenerationMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        },
+        "evidence_snapshot_id": {
+          "format": "uuid",
+          "title": "Evidence Snapshot Id",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "provider": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Provider",
+          "type": "string"
+        },
+        "model_name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Model Name",
+          "type": "string"
+        },
+        "model_version": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Model Version"
+        },
+        "prompt_version": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Prompt Version",
+          "type": "string"
+        },
+        "request_schema_version": {
+          "const": "1.0",
+          "title": "Request Schema Version",
+          "type": "string"
+        },
+        "evidence_schema_version": {
+          "const": "1.0",
+          "title": "Evidence Schema Version",
+          "type": "string"
+        },
+        "document_schema_version": {
+          "const": "1.0",
+          "title": "Document Schema Version",
+          "type": "string"
+        },
+        "requires_professional_review": {
+          "const": true,
+          "title": "Requires Professional Review",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "request_id",
+        "evidence_snapshot_id",
+        "generated_at",
+        "provider",
+        "model_name",
+        "model_version",
+        "prompt_version",
+        "request_schema_version",
+        "evidence_schema_version",
+        "document_schema_version",
+        "requires_professional_review"
+      ],
+      "title": "ReportGenerationMetadata",
+      "type": "object"
+    },
+    "ReportMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ref": {
+          "maxLength": 120,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Evidence Ref",
+          "type": "string"
+        },
+        "curriculum_average": {
+          "anyOf": [
+            {
+              "maximum": 15,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Curriculum Average"
+        },
+        "curriculum_average_percent": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Curriculum Average Percent"
+        },
+        "total_evaluated_domains": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Total Evaluated Domains",
+          "type": "integer"
+        },
+        "tests_completed": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Tests Completed",
+          "type": "integer"
+        },
+        "total_questions_answered": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Total Questions Answered",
+          "type": "integer"
+        },
+        "overall_accuracy_percent": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Overall Accuracy Percent"
+        }
+      },
+      "required": [
+        "evidence_ref",
+        "curriculum_average",
+        "curriculum_average_percent",
+        "total_evaluated_domains",
+        "tests_completed",
+        "total_questions_answered",
+        "overall_accuracy_percent"
+      ],
+      "title": "ReportMetrics",
+      "type": "object"
+    },
+    "ReportPeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        },
+        "end": {
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "ReportPeriod",
+      "type": "object"
+    },
+    "ReportStoredPrediction": {
+      "additionalProperties": false,
+      "description": "Existing prediction semantics with bounded fields for the report snapshot.",
+      "properties": {
+        "school_id": {
+          "format": "uuid",
+          "title": "School Id",
+          "type": "string"
+        },
+        "student_id": {
+          "format": "uuid",
+          "title": "Student Id",
+          "type": "string"
+        },
+        "suggests_educational_support": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Suggests Educational Support"
+        },
+        "status": {
+          "enum": [
+            "support_suggested",
+            "no_support_signal",
+            "insufficient_information",
+            "diagnosis_recorded"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "attention_index": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attention Index"
+        },
+        "applied_threshold": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applied Threshold"
+        },
+        "model_name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Model Name",
+          "type": "string"
+        },
+        "model_version": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Model Version",
+          "type": "string"
+        },
+        "model_route": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Model Route",
+          "type": "string"
+        },
+        "evidence_level": {
+          "enum": [
+            "insufficient",
+            "limited",
+            "standard"
+          ],
+          "title": "Evidence Level",
+          "type": "string"
+        },
+        "total_responses": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Total Responses",
+          "type": "integer"
+        },
+        "valid_response_times": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Valid Response Times",
+          "type": "integer"
+        },
+        "volume_outside_fit_range": {
+          "title": "Volume Outside Fit Range",
+          "type": "boolean"
+        },
+        "warnings": {
+          "items": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Warnings",
+          "type": "array"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "school_id",
+        "student_id",
+        "suggests_educational_support",
+        "status",
+        "model_name",
+        "model_version",
+        "model_route",
+        "evidence_level",
+        "total_responses",
+        "valid_response_times",
+        "volume_outside_fit_range",
+        "warnings",
+        "reason",
+        "generated_at",
+        "id",
+        "created_at"
+      ],
+      "title": "ReportStoredPrediction",
+      "type": "object"
+    },
+    "ResourceEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "resource_id": {
+          "format": "uuid",
+          "title": "Resource Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Title",
+          "type": "string"
+        },
+        "domain_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Domain Id"
+        },
+        "target_level": {
+          "enum": [
+            "reinforcement",
+            "practice",
+            "enrichment"
+          ],
+          "title": "Target Level",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource_id",
+        "title",
+        "domain_id",
+        "target_level"
+      ],
+      "title": "ResourceEvidence",
+      "type": "object"
+    },
+    "StudentReportDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "report_type": {
+          "const": "student",
+          "title": "Report Type",
+          "type": "string"
+        },
+        "language": {
+          "enum": [
+            "en",
+            "es",
+            "it"
+          ],
+          "title": "Language",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Title",
+          "type": "string"
+        },
+        "summary": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Summary",
+          "type": "string"
+        },
+        "strengths": {
+          "items": {
+            "$ref": "#/$defs/DomainFinding"
+          },
+          "maxItems": 20,
+          "title": "Strengths",
+          "type": "array"
+        },
+        "areas_for_improvement": {
+          "items": {
+            "$ref": "#/$defs/DomainFinding"
+          },
+          "maxItems": 20,
+          "title": "Areas For Improvement",
+          "type": "array"
+        },
+        "action_plan": {
+          "items": {
+            "$ref": "#/$defs/PedagogicalAction"
+          },
+          "maxItems": 20,
+          "title": "Action Plan",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "report_type",
+        "language",
+        "title",
+        "summary",
+        "strengths",
+        "areas_for_improvement",
+        "action_plan",
+        "limitations"
+      ],
+      "title": "StudentReportDocument",
+      "type": "object"
+    },
+    "StudentReportGenerationRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "student_id": {
+          "format": "uuid",
+          "title": "Student Id",
+          "type": "string"
+        },
+        "class_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Class Id"
+        },
+        "period": {
+          "$ref": "#/$defs/ReportPeriod"
+        },
+        "language": {
+          "enum": [
+            "en",
+            "es",
+            "it"
+          ],
+          "title": "Language",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "student_id",
+        "period",
+        "language"
+      ],
+      "title": "StudentReportGenerationRequest",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "evidence": {
+      "$ref": "#/$defs/ReportEvidenceSnapshot"
+    },
+    "document": {
+      "$ref": "#/$defs/StudentReportDocument"
+    },
+    "metadata": {
+      "$ref": "#/$defs/ReportGenerationMetadata"
+    }
+  },
+  "required": [
+    "schema_version",
+    "evidence",
+    "document",
+    "metadata"
+  ],
+  "title": "StudentReportGenerationResult",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

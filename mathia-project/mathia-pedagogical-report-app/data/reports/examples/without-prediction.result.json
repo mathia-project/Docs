@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "evidence": {
+    "schema_version": "1.0",
+    "evidence_snapshot_id": "00000000-0000-4000-8000-000000000003",
+    "prepared_at": "2026-09-28T08:00:00Z",
+    "school_id": "00000000-0000-4000-8000-000000000004",
+    "request": {
+      "schema_version": "1.0",
+      "student_id": "00000000-0000-4000-8000-000000000001",
+      "class_id": "00000000-0000-4000-8000-000000000002",
+      "period": {
+        "start": "2026-09-01",
+        "end": "2026-09-27"
+      },
+      "language": "en"
+    },
+    "calculation_version": "student-report-metrics/1.0",
+    "source_scope": "authorized_period_assessments",
+    "source_complete": true,
+    "metrics": {
+      "evidence_ref": "metrics",
+      "curriculum_average": 7.5,
+      "curriculum_average_percent": 50.0,
+      "total_evaluated_domains": 2,
+      "tests_completed": 1,
+      "total_questions_answered": 20,
+      "overall_accuracy_percent": 50.0
+    },
+    "domains": [
+      {
+        "evidence_ref": "domain:6.RP",
+        "domain_id": "6.RP",
+        "domain_name": "6.RP",
+        "category_id": null,
+        "is_baseline": false,
+        "evaluations_count": 1,
+        "total_questions": 10,
+        "correct_questions": 8,
+        "total_score_awarded": 8.0,
+        "total_max_score": 10.0,
+        "score": 12.0,
+        "accuracy_percent": 80.0,
+        "classification": "consolidated_strength"
+      },
+      {
+        "evidence_ref": "domain:6.NS",
+        "domain_id": "6.NS",
+        "domain_name": "6.NS",
+        "category_id": null,
+        "is_baseline": false,
+        "evaluations_count": 1,
+        "total_questions": 10,
+        "correct_questions": 2,
+        "total_score_awarded": 2.0,
+        "total_max_score": 10.0,
+        "score": 3.0,
+        "accuracy_percent": 20.0,
+        "classification": "intervention"
+      }
+    ],
+    "diagnostic": {
+      "evidence_ref": "diagnostic",
+      "has_recorded_diagnosis": false
+    },
+    "stored_prediction": null,
+    "resources": [
+      {
+        "resource_id": "00000000-0000-4000-8000-000000000005",
+        "title": "Number practice",
+        "domain_id": "6.NS",
+        "target_level": "reinforcement"
+      }
+    ],
+    "limitations": [
+      "No stored support prediction is available."
+    ]
+  },
+  "document": {
+    "schema_version": "1.0",
+    "report_type": "student",
+    "language": "en",
+    "title": "Individual pedagogical report",
+    "summary": "Measured performance varies across the two assessed domains.",
+    "strengths": [
+      {
+        "domain_id": "6.RP",
+        "text": "Ratio tasks show a measured score of 12/15.",
+        "evidence_refs": [
+          "domain:6.RP"
+        ]
+      }
+    ],
+    "areas_for_improvement": [
+      {
+        "domain_id": "6.NS",
+        "text": "Number tasks require reinforcement.",
+        "evidence_refs": [
+          "domain:6.NS"
+        ]
+      }
+    ],
+    "action_plan": [
+      {
+        "description": "Use guided number practice and check understanding.",
+        "resource_ids": [
+          "00000000-0000-4000-8000-000000000005"
+        ],
+        "evidence_refs": [
+          "domain:6.NS"
+        ]
+      }
+    ],
+    "limitations": [
+      "No stored support prediction is available."
+    ]
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "request_id": "00000000-0000-4000-8000-000000000006",
+    "evidence_snapshot_id": "00000000-0000-4000-8000-000000000003",
+    "generated_at": "2026-09-28T08:00:01Z",
+    "provider": "fixture",
+    "model_name": "fixture-narrator",
+    "model_version": null,
+    "prompt_version": "student-report/1.0",
+    "request_schema_version": "1.0",
+    "evidence_schema_version": "1.0",
+    "document_schema_version": "1.0",
+    "requires_professional_review": true
+  }
+}

@@ -1,0 +1,1 @@
+\ir /opt/mathia/postgres/migrations/202610130001_curricular_evaluation_course_context.sql

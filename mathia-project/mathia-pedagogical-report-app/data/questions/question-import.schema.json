@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mathia.local/schemas/question-import-1.0.json",
+  "title": "Mathia question import batch",
+  "description": "Canonical AI-generated question batch accepted by Mathia.",
+  "type": "object",
+  "required": ["schema_version", "questions"],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/question"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonBlankString": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "nullableNonBlankString": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "optionKey": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+    },
+    "option": {
+      "type": "object",
+      "required": ["key", "content"],
+      "properties": {
+        "key": {
+          "$ref": "#/$defs/optionKey"
+        },
+        "content": {
+          "$ref": "#/$defs/nonBlankString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "emptyAnswerConfig": {
+      "type": "object",
+      "maxProperties": 0
+    },
+    "numericAnswerConfig": {
+      "type": "object",
+      "required": ["correct_value"],
+      "properties": {
+        "correct_value": {
+          "type": "number"
+        },
+        "tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "curriculum": {
+      "type": "object",
+      "required": [
+        "domain_code",
+        "cluster_code",
+        "standard_code",
+        "substandard_code"
+      ],
+      "properties": {
+        "domain_code": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "cluster_code": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "standard_code": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "substandard_code": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "standard_code": {
+                "type": "string"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "cluster_code": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "substandard_code": {
+                "type": "string"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "standard_code": {
+                "type": "string"
+              },
+              "cluster_code": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "question": {
+      "type": "object",
+      "required": [
+        "question_type",
+        "prompt",
+        "difficulty",
+        "language",
+        "curriculum"
+      ],
+      "properties": {
+        "external_id": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "question_type": {
+          "enum": [
+            "single_choice",
+            "multiple_choice",
+            "true_false",
+            "numeric",
+            "short_text"
+          ]
+        },
+        "prompt": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/option"
+          }
+        },
+        "correct_options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/optionKey"
+          },
+          "uniqueItems": true
+        },
+        "explanation": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "difficulty": {
+          "enum": ["easy", "medium", "hard"]
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$"
+        },
+        "curriculum": {
+          "$ref": "#/$defs/curriculum"
+        },
+        "answer_config": {
+          "type": "object"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "question_type": {
+                "const": "single_choice"
+              }
+            },
+            "required": ["question_type"]
+          },
+          "then": {
+            "required": ["options", "correct_options"],
+            "properties": {
+              "options": {
+                "minItems": 2
+              },
+              "correct_options": {
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "answer_config": {
+                "$ref": "#/$defs/emptyAnswerConfig"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "question_type": {
+                "const": "multiple_choice"
+              }
+            },
+            "required": ["question_type"]
+          },
+          "then": {
+            "required": ["options", "correct_options"],
+            "properties": {
+              "options": {
+                "minItems": 2
+              },
+              "correct_options": {
+                "minItems": 1
+              },
+              "answer_config": {
+                "$ref": "#/$defs/emptyAnswerConfig"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "question_type": {
+                "const": "true_false"
+              }
+            },
+            "required": ["question_type"]
+          },
+          "then": {
+            "required": ["options", "correct_options"],
+            "properties": {
+              "options": {
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "correct_options": {
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "answer_config": {
+                "$ref": "#/$defs/emptyAnswerConfig"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "question_type": {
+                "const": "numeric"
+              }
+            },
+            "required": ["question_type"]
+          },
+          "then": {
+            "required": ["answer_config"],
+            "properties": {
+              "options": {
+                "maxItems": 0
+              },
+              "correct_options": {
+                "maxItems": 0
+              },
+              "answer_config": {
+                "$ref": "#/$defs/numericAnswerConfig"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "question_type": {
+                "const": "short_text"
+              }
+            },
+            "required": ["question_type"]
+          },
+          "then": {
+            "properties": {
+              "options": {
+                "maxItems": 0
+              },
+              "correct_options": {
+                "maxItems": 0
+              },
+              "answer_config": {
+                "$ref": "#/$defs/emptyAnswerConfig"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

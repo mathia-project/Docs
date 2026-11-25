@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "questions": [
+    {
+      "external_id": "Q-6RP-001",
+      "question_type": "single_choice",
+      "prompt": "Una receta usa 2 tazas de agua por cada 3 tazas de harina. ¿Qué razón representa el agua respecto a la harina?",
+      "options": [
+        { "key": "A", "content": "2:3" },
+        { "key": "B", "content": "3:2" },
+        { "key": "C", "content": "2:5" },
+        { "key": "D", "content": "5:2" }
+      ],
+      "correct_options": ["A"],
+      "explanation": "La razón compara 2 tazas de agua con 3 tazas de harina, por lo que es 2:3.",
+      "difficulty": "easy",
+      "language": "es",
+      "curriculum": {
+        "domain_code": "6.RP",
+        "cluster_code": "6.RP.A",
+        "standard_code": "6.RP.A.1",
+        "substandard_code": null
+      },
+      "answer_config": {}
+    },
+    {
+      "external_id": "Q-6RP-002",
+      "question_type": "multiple_choice",
+      "prompt": "Selecciona todas las razones equivalentes a 3:4.",
+      "options": [
+        { "key": "A", "content": "6:8" },
+        { "key": "B", "content": "9:12" },
+        { "key": "C", "content": "12:15" },
+        { "key": "D", "content": "15:20" }
+      ],
+      "correct_options": ["A", "B", "D"],
+      "explanation": "Al simplificar 6:8, 9:12 y 15:20 se obtiene 3:4. La razón 12:15 se simplifica a 4:5.",
+      "difficulty": "medium",
+      "language": "es",
+      "curriculum": {
+        "domain_code": "6.RP",
+        "cluster_code": "6.RP.A",
+        "standard_code": "6.RP.A.1",
+        "substandard_code": null
+      },
+      "answer_config": {}
+    },
+    {
+      "external_id": "Q-6NS-001",
+      "question_type": "true_false",
+      "prompt": "El número −4 está situado a la izquierda de −1 en la recta numérica.",
+      "options": [
+        { "key": "A", "content": "Verdadero" },
+        { "key": "B", "content": "Falso" }
+      ],
+      "correct_options": ["A"],
+      "explanation": "En la recta numérica, los números menores se encuentran más a la izquierda; −4 es menor que −1.",
+      "difficulty": "easy",
+      "language": "es",
+      "curriculum": {
+        "domain_code": "6.NS",
+        "cluster_code": "6.NS.C",
+        "standard_code": "6.NS.C.6",
+        "substandard_code": null
+      },
+      "answer_config": {}
+    },
+    {
+      "external_id": "Q-6EE-001",
+      "question_type": "numeric",
+      "prompt": "Calcula el valor de 2³ + 5. Escribe únicamente el resultado numérico.",
+      "options": [],
+      "correct_options": [],
+      "explanation": "Primero se calcula la potencia: 2³ = 8. Después, 8 + 5 = 13.",
+      "difficulty": "easy",
+      "language": "es",
+      "curriculum": {
+        "domain_code": "6.EE",
+        "cluster_code": "6.EE.A",
+        "standard_code": "6.EE.A.1",
+        "substandard_code": null
+      },
+      "answer_config": {
+        "correct_value": 13,
+        "tolerance": 0
+      }
+    },
+    {
+      "external_id": "Q-7SP-001",
+      "question_type": "short_text",
+      "prompt": "Explica por qué una muestra aleatoria suele representar mejor a una población que una muestra elegida por conveniencia.",
+      "options": [],
+      "correct_options": [],
+      "explanation": "Una selección aleatoria reduce el sesgo de elección y da a los miembros de la población una oportunidad conocida de formar parte de la muestra.",
+      "difficulty": "medium",
+      "language": "es",
+      "curriculum": {
+        "domain_code": "7.SP",
+        "cluster_code": "7.SP.A",
+        "standard_code": "7.SP.A.1",
+        "substandard_code": null
+      },
+      "answer_config": {}
+    }
+  ]
+}

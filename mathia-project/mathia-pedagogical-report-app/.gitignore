@@ -1,0 +1,32 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*credentials*.json
+*service-account*.json
+
+# Dependencies and generated files
+node_modules/
+dist/
+coverage/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.vite/
+*.tsbuildinfo
+.coverage
+htmlcov/
+*.log
+output/
+backups/
+.runtime/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

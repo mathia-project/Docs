@@ -1,0 +1,520 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mathia.local/schemas/resource-import-1.0.json",
+  "title": "Mathia pedagogical resource import batch",
+  "description": "Canonical contract for AI-generated resources and web-discovered links or videos.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "resources"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "resources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonBlankString": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "nullableNonBlankString": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullableHttpUrl": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "curriculumId": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "searchResult": {
+      "type": "object",
+      "required": [
+        "url",
+        "title"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "title": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "publisher": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "published_at": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "accessed_at": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "snippet": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "language": {
+          "enum": [
+            "en",
+            "es",
+            "it",
+            null
+          ]
+        },
+        "language_evidence": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "resource_type": {
+          "enum": [
+            "link",
+            "video",
+            null
+          ]
+        },
+        "source_url": {
+          "$ref": "#/$defs/nullableHttpUrl"
+        }
+      },
+      "additionalProperties": false
+    },
+    "search": {
+      "type": "object",
+      "required": [
+        "query",
+        "searched_at",
+        "selected_url",
+        "results"
+      ],
+      "properties": {
+        "query": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "searched_at": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "selected_url": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "results": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/searchResult"
+          }
+        },
+        "provider": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "web_search_queries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "search_entry_point": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "generation": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "generated",
+            "web_search",
+            "provided"
+          ]
+        },
+        "prompt": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "model": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "generated_at": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "search": {
+          "$ref": "#/$defs/search"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "generated"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "required": [
+              "prompt"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "web_search"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "required": [
+              "search"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "exerciseItem": {
+      "type": "object",
+      "required": [
+        "id",
+        "prompt",
+        "solution"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "prompt": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "answer": {},
+        "solution": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonBlankString"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "exercise": {
+      "type": "object",
+      "required": [
+        "format",
+        "instructions",
+        "items"
+      ],
+      "properties": {
+        "format": {
+          "enum": [
+            "guided_practice",
+            "worksheet",
+            "problem_set",
+            "interactive_activity"
+          ]
+        },
+        "instructions": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/exerciseItem"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "resource": {
+      "type": "object",
+      "required": [
+        "title",
+        "resource_type",
+        "language",
+        "target_level"
+      ],
+      "properties": {
+        "external_id": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "title": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "description": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "resource_type": {
+          "enum": [
+            "document",
+            "link",
+            "video",
+            "audio",
+            "image",
+            "exercise",
+            "other"
+          ]
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "published",
+            "archived"
+          ],
+          "default": "draft"
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$"
+        },
+        "course_id": {
+          "$ref": "#/$defs/curriculumId"
+        },
+        "category_id": {
+          "$ref": "#/$defs/curriculumId"
+        },
+        "domain_id": {
+          "$ref": "#/$defs/curriculumId"
+        },
+        "cluster_id": {
+          "$ref": "#/$defs/curriculumId"
+        },
+        "standard_id": {
+          "$ref": "#/$defs/curriculumId"
+        },
+        "target_level": {
+          "enum": [
+            "reinforcement",
+            "practice",
+            "enrichment"
+          ]
+        },
+        "url": {
+          "$ref": "#/$defs/nullableHttpUrl"
+        },
+        "body": {
+          "$ref": "#/$defs/nullableNonBlankString"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "generation": {
+          "$ref": "#/$defs/generation"
+        },
+        "exercise": {
+          "$ref": "#/$defs/exercise"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "resource_type": {
+                "enum": [
+                  "document",
+                  "exercise"
+                ]
+              }
+            },
+            "required": [
+              "resource_type"
+            ]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "properties": {
+                  "body": {
+                    "$ref": "#/$defs/nonBlankString"
+                  }
+                },
+                "required": [
+                  "body"
+                ]
+              },
+              {
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "pattern": "^https?://\\S+$"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "resource_type": {
+                "const": "exercise"
+              },
+              "generation": {
+                "properties": {
+                  "mode": {
+                    "const": "generated"
+                  }
+                },
+                "required": [
+                  "mode"
+                ]
+              }
+            },
+            "required": [
+              "resource_type",
+              "generation"
+            ]
+          },
+          "then": {
+            "required": [
+              "exercise"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "resource_type": {
+                "enum": [
+                  "document",
+                  "exercise"
+                ]
+              },
+              "generation": {
+                "properties": {
+                  "mode": {
+                    "const": "generated"
+                  }
+                },
+                "required": [
+                  "mode"
+                ]
+              }
+            },
+            "required": [
+              "resource_type",
+              "generation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "body": {
+                "$ref": "#/$defs/nonBlankString"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "resource_type": {
+                "enum": [
+                  "link",
+                  "video"
+                ]
+              }
+            },
+            "required": [
+              "resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "url": {
+                "type": "string",
+                "pattern": "^https?://\\S+$"
+              }
+            },
+            "required": [
+              "url"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "resource_type": {
+                "enum": [
+                  "link",
+                  "video"
+                ]
+              },
+              "generation": {
+                "properties": {
+                  "mode": {
+                    "const": "web_search"
+                  }
+                },
+                "required": [
+                  "mode"
+                ]
+              }
+            },
+            "required": [
+              "resource_type",
+              "generation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "generation": {
+                "required": [
+                  "search"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

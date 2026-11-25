@@ -1,0 +1,97 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "request_id": {
+      "format": "uuid",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "evidence_snapshot_id": {
+      "format": "uuid",
+      "title": "Evidence Snapshot Id",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "provider": {
+      "maxLength": 200,
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Provider",
+      "type": "string"
+    },
+    "model_name": {
+      "maxLength": 200,
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Model Name",
+      "type": "string"
+    },
+    "model_version": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Model Version"
+    },
+    "prompt_version": {
+      "maxLength": 200,
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Prompt Version",
+      "type": "string"
+    },
+    "request_schema_version": {
+      "const": "1.0",
+      "title": "Request Schema Version",
+      "type": "string"
+    },
+    "evidence_schema_version": {
+      "const": "1.0",
+      "title": "Evidence Schema Version",
+      "type": "string"
+    },
+    "document_schema_version": {
+      "const": "1.0",
+      "title": "Document Schema Version",
+      "type": "string"
+    },
+    "requires_professional_review": {
+      "const": true,
+      "title": "Requires Professional Review",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "evidence_snapshot_id",
+    "generated_at",
+    "provider",
+    "model_name",
+    "model_version",
+    "prompt_version",
+    "request_schema_version",
+    "evidence_schema_version",
+    "document_schema_version",
+    "requires_professional_review"
+  ],
+  "title": "ReportGenerationMetadata",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

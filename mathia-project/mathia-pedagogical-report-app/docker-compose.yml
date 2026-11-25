@@ -1,0 +1,173 @@
+name: mathia-local
+
+services:
+  database:
+    image: postgres:17.11-alpine3.23
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+      - ./postgres:/opt/mathia/postgres:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --username=$${POSTGRES_USER} --dbname=$${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  directus:
+    image: directus/directus:${DIRECTUS_VERSION:-11.16.0}
+    restart: unless-stopped
+    init: true
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${DIRECTUS_PORT:-8055}:8055"
+    volumes:
+      - ./directus/extensions:/directus/extensions
+      - ./directus/migrations:/directus/migrations
+      - directus_uploads:/directus/uploads
+      - directus_snapshots:/directus/snapshots
+    environment:
+      SECRET: ${DIRECTUS_SECRET}
+      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
+      PUBLIC_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
+      DB_CLIENT: pg
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_DATABASE: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: ${DIRECTUS_CORS_ORIGIN:-http://localhost:5173}
+      CORS_CREDENTIALS: "true"
+      WEBSOCKETS_ENABLED: "true"
+      TELEMETRY: "false"
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:8055/server/ping').then((response) => { if (!response.ok) process.exit(1); }).catch(() => process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  directus-bootstrap:
+    image: node:24-alpine
+    restart: "no"
+    working_dir: /bootstrap
+    command: ["sh", "-c", "node bootstrap.mjs && node seed.mjs"]
+    depends_on:
+      directus:
+        condition: service_healthy
+    volumes:
+      - ./directus/bootstrap:/bootstrap:ro
+    environment:
+      DIRECTUS_URL: http://directus:8055
+      DIRECTUS_ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
+      DIRECTUS_ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
+      DIRECTUS_PROJECT_OWNER: ${DIRECTUS_PROJECT_OWNER:-admin@example.com}
+      DIRECTUS_PROJECT_USAGE: ${DIRECTUS_PROJECT_USAGE:-community}
+      DIRECTUS_PRODUCT_UPDATES: ${DIRECTUS_PRODUCT_UPDATES:-false}
+      SEED_SCHOOL_NAME: ${SEED_SCHOOL_NAME:-Mathia School}
+      SEED_SCHOOL_CODE: ${SEED_SCHOOL_CODE:-MATHIA}
+      SEED_SCHOOL_SLUG: ${SEED_SCHOOL_SLUG:-mathia-school}
+      SEED_DEFAULT_LANGUAGE: ${SEED_DEFAULT_LANGUAGE:-es}
+      SEED_TIME_ZONE: ${SEED_TIME_ZONE:-Europe/Madrid}
+      SEED_EDUCATIONAL_SYSTEM: ${SEED_EDUCATIONAL_SYSTEM:-ES}
+      SEED_MODE: ${SEED_MODE:-demo}
+      SEED_DIRECTOR_EMAIL: ${SEED_DIRECTOR_EMAIL:-director@example.com}
+      SEED_DIRECTOR_PASSWORD: ${SEED_DIRECTOR_PASSWORD:-director123}
+      SEED_DIRECTOR_FIRST_NAME: ${SEED_DIRECTOR_FIRST_NAME:-Ana}
+      SEED_DIRECTOR_LAST_NAME: ${SEED_DIRECTOR_LAST_NAME:-Directora}
+      SEED_DIRECTOR_EMPLOYEE_ID: ${SEED_DIRECTOR_EMPLOYEE_ID:-DIR-001}
+      SEED_TEACHER_EMAIL: ${SEED_TEACHER_EMAIL:-teacher@example.com}
+      SEED_TEACHER_PASSWORD: ${SEED_TEACHER_PASSWORD:-teacher123}
+      SEED_TEACHER_FIRST_NAME: ${SEED_TEACHER_FIRST_NAME:-Sofía}
+      SEED_TEACHER_LAST_NAME: ${SEED_TEACHER_LAST_NAME:-Martínez}
+      SEED_TEACHER_EMPLOYEE_ID: ${SEED_TEACHER_EMPLOYEE_ID:-EMP-001}
+      SEED_CLASS_NAME: ${SEED_CLASS_NAME:-1º Secundaria A}
+      SEED_CLASS_CODE: ${SEED_CLASS_CODE:-1SEC-A}
+      SEED_CLASS_ACADEMIC_YEAR: ${SEED_CLASS_ACADEMIC_YEAR:-2025-2026}
+      SEED_CLASS_GRADE_LEVEL: ${SEED_CLASS_GRADE_LEVEL:-grade-7}
+      SEED_STUDENTS_JSON: '${SEED_STUDENTS_JSON:-[{"email":"student@example.com","password":"student123","firstName":"Lucas","lastName":"García","externalId":"ALU-001"},{"email":"student2@example.com","password":"student123","firstName":"Emma","lastName":"Rodríguez","externalId":"ALU-002"}]}'
+
+  ai-service:
+    build:
+      context: ./ai-service
+    restart: unless-stopped
+    init: true
+    environment:
+      ENVIRONMENT: development
+      AI_CORS_ORIGINS: ${AI_CORS_ORIGINS:-http://localhost:5173}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: database
+      POSTGRES_PORT: 5432
+      AI_STRUCTURED_PROVIDER: mock
+      AI_SEARCH_PROVIDER: disabled
+      AI_TIMEOUT_SECONDS: ${AI_TIMEOUT_SECONDS:-30}
+      AI_MAX_CONCURRENCY: ${AI_MAX_CONCURRENCY:-5}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      DIRECTUS_URL: http://directus:8055
+      AI_REFERENCE_DATA_DIR: /app/data
+    depends_on:
+      database:
+        condition: service_healthy
+      directus:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${AI_SERVICE_PORT:-8000}:8000"
+    volumes:
+      - ./data:/app/data:ro
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  app:
+    build:
+      context: ./app
+      args:
+        VITE_DIRECTUS_URL: ${VITE_DIRECTUS_URL:-http://localhost:8055}
+        VITE_AI_SERVICE_URL: ${VITE_AI_SERVICE_URL:-http://localhost:8000}
+        VITE_DEFAULT_LOCALE: ${SEED_DEFAULT_LANGUAGE:-es}
+    restart: unless-stopped
+    init: true
+    depends_on:
+      directus-bootstrap:
+        condition: service_completed_successfully
+      directus:
+        condition: service_healthy
+      ai-service:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${APP_PORT:-5173}:80"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  postgres_data:
+  directus_uploads:
+  directus_snapshots:

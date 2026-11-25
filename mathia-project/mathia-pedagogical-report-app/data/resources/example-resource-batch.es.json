@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "resources": [
+    {
+      "external_id": "grade-6-expressions-guide-001",
+      "title": "Guía de expresiones algebraicas",
+      "description": "Material introductorio para comprender variables, coeficientes y términos semejantes.",
+      "resource_type": "document",
+      "status": "draft",
+      "language": "es",
+      "course_id": "grade-6",
+      "category_id": "A",
+      "domain_id": "6.EE",
+      "cluster_id": null,
+      "standard_id": null,
+      "target_level": "reinforcement",
+      "url": null,
+      "body": "# Expresiones algebraicas\n\nUna expresión algebraica combina números, operaciones y variables.",
+      "metadata": {
+        "estimated_minutes": 20,
+        "tags": ["álgebra", "variables"]
+      },
+      "generation": {
+        "mode": "generated",
+        "prompt": "Crea una guía visual breve para alumnado de 6º sobre variables, coeficientes y términos semejantes.",
+        "model": "internal-content-generator",
+        "generated_at": "2026-09-24T10:00:00Z"
+      }
+    },
+    {
+      "external_id": "grade-6-unit-rates-video-001",
+      "title": "Vídeo sobre tasas unitarias",
+      "description": "Recurso externo seleccionado para practicar razones y precios unitarios.",
+      "resource_type": "video",
+      "status": "draft",
+      "language": "es",
+      "course_id": "grade-6",
+      "category_id": "A",
+      "domain_id": "6.RP",
+      "target_level": "practice",
+      "url": "https://example.com/video",
+      "body": null,
+      "metadata": {},
+      "generation": {
+        "mode": "web_search",
+        "search": {
+          "query": "vídeo educativo tasas unitarias sexto matemáticas",
+          "searched_at": "2026-09-24T10:05:00Z",
+          "selected_url": "https://example.com/video",
+          "results": [
+            {
+              "url": "https://example.com/video",
+              "title": "Tasas unitarias",
+              "publisher": "Example Education",
+              "accessed_at": "2026-09-24T10:05:00Z",
+              "snippet": "Explicación visual de tasas y precios por unidad."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "external_id": "grade-6-distributive-practice-001",
+      "title": "Práctica guiada de la propiedad distributiva",
+      "description": "Ejercicios graduados con solución y pistas.",
+      "resource_type": "exercise",
+      "status": "draft",
+      "language": "es",
+      "course_id": "grade-6",
+      "category_id": "A",
+      "domain_id": "6.EE",
+      "target_level": "practice",
+      "url": null,
+      "body": "# Propiedad distributiva\n\nDesarrolla y simplifica cada expresión.",
+      "metadata": {
+        "estimated_minutes": 25
+      },
+      "generation": {
+        "mode": "generated",
+        "prompt": "Crea una práctica guiada de 3 ejercicios sobre a(b+c), con dificultad creciente y soluciones explicadas.",
+        "model": "internal-content-generator",
+        "generated_at": "2026-09-24T10:10:00Z"
+      },
+      "exercise": {
+        "format": "guided_practice",
+        "instructions": "Desarrolla cada expresión y simplifica el resultado.",
+        "items": [
+          {
+            "id": "item-1",
+            "prompt": "3(2x + 4)",
+            "answer": "6x + 12",
+            "solution": "Multiplica 3 por cada término: 3·2x + 3·4 = 6x + 12.",
+            "hints": ["Aplica la propiedad distributiva a los dos términos."]
+          }
+        ]
+      }
+    }
+  ]
+}

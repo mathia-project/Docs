@@ -1,0 +1,72 @@
+{
+  "$defs": {
+    "ReportPeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        },
+        "end": {
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "ReportPeriod",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "student_id": {
+      "format": "uuid",
+      "title": "Student Id",
+      "type": "string"
+    },
+    "class_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Class Id"
+    },
+    "period": {
+      "$ref": "#/$defs/ReportPeriod"
+    },
+    "language": {
+      "enum": [
+        "en",
+        "es",
+        "it"
+      ],
+      "title": "Language",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "student_id",
+    "period",
+    "language"
+  ],
+  "title": "StudentReportGenerationRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "evidence": {
+    "schema_version": "1.0",
+    "evidence_snapshot_id": "00000000-0000-4000-8000-000000000003",
+    "prepared_at": "2026-09-28T08:00:00Z",
+    "school_id": "00000000-0000-4000-8000-000000000004",
+    "request": {
+      "schema_version": "1.0",
+      "student_id": "00000000-0000-4000-8000-000000000001",
+      "class_id": "00000000-0000-4000-8000-000000000002",
+      "period": {
+        "start": "2026-09-01",
+        "end": "2026-09-27"
+      },
+      "language": "en"
+    },
+    "calculation_version": "student-report-metrics/1.0",
+    "source_scope": "authorized_period_assessments",
+    "source_complete": true,
+    "metrics": {
+      "evidence_ref": "metrics",
+      "curriculum_average": null,
+      "curriculum_average_percent": null,
+      "total_evaluated_domains": 0,
+      "tests_completed": 0,
+      "total_questions_answered": 0,
+      "overall_accuracy_percent": null
+    },
+    "domains": [
+      {
+        "evidence_ref": "domain:6.RP",
+        "domain_id": "6.RP",
+        "domain_name": "Ratios",
+        "category_id": null,
+        "is_baseline": true,
+        "evaluations_count": 0,
+        "total_questions": 0,
+        "correct_questions": 0,
+        "total_score_awarded": 0.0,
+        "total_max_score": 0.0,
+        "score": null,
+        "accuracy_percent": null,
+        "classification": "insufficient_evidence"
+      }
+    ],
+    "diagnostic": {
+      "evidence_ref": "diagnostic",
+      "has_recorded_diagnosis": false
+    },
+    "stored_prediction": null,
+    "resources": [],
+    "limitations": [
+      "No assessments are available in the requested period."
+    ]
+  },
+  "document": {
+    "schema_version": "1.0",
+    "report_type": "student",
+    "language": "en",
+    "title": "Individual pedagogical report",
+    "summary": "There is insufficient assessment evidence to characterize performance.",
+    "strengths": [],
+    "areas_for_improvement": [],
+    "action_plan": [
+      {
+        "description": "Collect an initial assessment before drawing conclusions.",
+        "resource_ids": [],
+        "evidence_refs": [
+          "metrics"
+        ]
+      }
+    ],
+    "limitations": [
+      "No assessments are available in the requested period."
+    ]
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "request_id": "00000000-0000-4000-8000-000000000006",
+    "evidence_snapshot_id": "00000000-0000-4000-8000-000000000003",
+    "generated_at": "2026-09-28T08:00:01Z",
+    "provider": "fixture",
+    "model_name": "fixture-narrator",
+    "model_version": null,
+    "prompt_version": "student-report/1.0",
+    "request_schema_version": "1.0",
+    "evidence_schema_version": "1.0",
+    "document_schema_version": "1.0",
+    "requires_professional_review": true
+  }
+}
